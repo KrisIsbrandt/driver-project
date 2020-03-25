@@ -32,7 +32,7 @@ public class HeroController {
 
     @GetMapping("/remove/{id}")
     public String remove(@PathVariable long id) {
-        heroRepository.delete(id);
+        heroRepository.deleteById(id);
         return "redirect:/hero/list";
     }
 
