@@ -9,9 +9,12 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "role_id")
     private int id;
+
     @Column(name = "role")
     private String name;
 
+    public Role() {
+    }
 
     public int getId() {
         return id;
