@@ -1,4 +1,4 @@
-package pl.coderslab.service;
+package pl.coderslab.exception;
 
 public class StorageException extends RuntimeException {
 
