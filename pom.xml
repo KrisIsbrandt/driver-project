@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.4.RELEASE</version>
+        <version>2.2.0.RELEASE</version>
     </parent>
     <groupId>pl.coderslab</groupId>
     <artifactId>driver</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>driver</name>
-    <description>rest api with handling entities and files for quizzes related to driver training</description>
+    <name>driver-project</name>
+    <description>rest api with handling entities and files related to driver training</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
