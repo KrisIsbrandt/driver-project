@@ -97,4 +97,8 @@ public class Article {
     public void setVersion(int version) {
         this.version = version;
     }
+
+    public void addAsset(Asset asset) {
+        this.assetList.add(asset);
+    }
 }
