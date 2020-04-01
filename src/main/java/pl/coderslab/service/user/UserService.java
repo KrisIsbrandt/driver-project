@@ -1,4 +1,4 @@
-package pl.coderslab.service;
+package pl.coderslab.service.user;
 
 import pl.coderslab.model.User;
 

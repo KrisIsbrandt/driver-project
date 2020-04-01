@@ -1,4 +1,4 @@
-package pl.coderslab.service;
+package pl.coderslab.service.user;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
