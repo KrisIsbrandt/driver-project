@@ -1,4 +1,4 @@
-package pl.coderslab.service;
+package pl.coderslab.service.storage;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +16,8 @@ public interface StorageService {
     Path load(String filename);
 
     Resource loadAsResource(String filename);
+
+    String getFileExtension(String filename);
 
     void deleteAll();
 }

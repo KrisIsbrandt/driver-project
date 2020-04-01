@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.exception.StorageFileNotFoundException;
-import pl.coderslab.service.StorageService;
+import pl.coderslab.service.storage.StorageService;
 
 import java.io.IOException;
 import java.util.stream.Collectors;
