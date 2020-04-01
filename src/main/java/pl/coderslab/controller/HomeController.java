@@ -36,7 +36,7 @@ public class HomeController {
         User user = new User();
         user.setUsername("admin");
         user.setPassword("admin");
-        userService.saveUser(user);
+        userService.save(user);
         return "-created-";
     }
 

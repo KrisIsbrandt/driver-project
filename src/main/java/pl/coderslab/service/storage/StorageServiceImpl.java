@@ -52,7 +52,7 @@ public class StorageServiceImpl implements StorageService {
             asset.setAssetName(file.getOriginalFilename());
             asset.setAssetType(getFileExtension(file.getOriginalFilename()));
             asset.setAssetLocation(rootLocation.toFile().getAbsolutePath());
-            
+
             //copy a asset to rootLocation with the original name
             Files.copy(file.getInputStream() , this.rootLocation.resolve(file.getOriginalFilename()));
 
