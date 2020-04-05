@@ -2,6 +2,7 @@ package pl.coderslab.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,9 +18,8 @@ public class Article {
     @Column(columnDefinition = "TEXT")
     private String articleBody;
 
-    @OneToMany
-    @JoinColumn(name = "article_asset")
-    private Set<Asset> assetList;
+    @ManyToMany
+    private Set<Asset> assetList = new HashSet<>();
 
     private LocalDateTime created;
 
@@ -39,6 +39,18 @@ public class Article {
     public void onUpdate() {
         this.updated = LocalDateTime.now();
         this.version += 1;
+    }
+
+    public void addAsset(Asset asset) {
+        this.assetList.add(asset);
+    }
+
+    public void removeAsset(Asset asset) {
+        this.assetList.remove(asset);
+    }
+
+    public void removeAllAssets() {
+        this.assetList.clear();
     }
 
     //Getters & Setters
@@ -98,7 +110,4 @@ public class Article {
         this.version = version;
     }
 
-    public void addAsset(Asset asset) {
-        this.assetList.add(asset);
-    }
 }
