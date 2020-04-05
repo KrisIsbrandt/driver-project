@@ -7,14 +7,12 @@ public class ExceptionResponse {
     private String path;
     private String message;
     private String timestamp;
-    private String trace;
 
     public ExceptionResponse(int status, Map<String, Object> errorAttributes) {
         this.status = status;
         this.setPath(errorAttributes.get("path").toString());
         this.setMessage(errorAttributes.get("message").toString());
         this.setTimestamp(errorAttributes.get("timestamp").toString());
-        this.setTrace((String) errorAttributes.get("trace"));
     }
 
     //Getters & Setters
@@ -48,13 +46,5 @@ public class ExceptionResponse {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public String getTrace() {
-        return trace;
-    }
-
-    public void setTrace(String trace) {
-        this.trace = trace;
     }
 }
