@@ -15,6 +15,12 @@ public interface ArticleService {
 
     void assignMultipleAssets(Article article, List<Asset> assets);
 
+    void removeAsset(Article article, Asset asset);
+
+    void removeMultipleMultipleAssets(Article article, List<Asset> assets);
+
+    void removeAllAssets(Article article);
+
     List<Article> findAll();
 
     Article findById(Long id);

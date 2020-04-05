@@ -47,13 +47,33 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public void removeAsset(Article article, Asset asset) {
+        article.removeAsset(asset);
+        articleRepository.save(article);
+    }
+
+    @Override
+    public void removeMultipleMultipleAssets(Article article, List<Asset> assets) {
+        for (Asset asset : assets) {
+            article.removeAsset(asset);
+        }
+        articleRepository.save(article);
+    }
+
+    @Override
+    public void removeAllAssets(Article article) {
+        article.removeAllAssets();
+        articleRepository.save(article);
+    }
+
+    @Override
     public List<Article> findAll() {
         return articleRepository.findAll();
     }
 
     @Override
     public Article findById(Long id) {
-        return articleRepository.findById(id).get();
+        return articleRepository.findById(id).orElse(null);
     }
 
     @Override
