@@ -47,7 +47,7 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public Long store(MultipartFile file) {
+    public Asset store(MultipartFile file) {
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file" + file.getOriginalFilename());
@@ -66,7 +66,7 @@ public class AssetServiceImpl implements AssetService {
 
             //save asset
             assetRepository.save(asset);
-            return asset.getId();
+            return asset;
         } catch (IOException e) {
             throw new StorageException("Failed to store file" + file.getOriginalFilename(), e);
         }

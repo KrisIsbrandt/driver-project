@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 public interface AssetService {
     void init();
 
-    Long store(MultipartFile file);
+    Asset store(MultipartFile file);
 
     Stream<Path> loadAll();
 
