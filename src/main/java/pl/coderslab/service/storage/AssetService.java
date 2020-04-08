@@ -2,6 +2,10 @@ package pl.coderslab.service.storage;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
+import pl.coderslab.dto.ArticleDto;
+import pl.coderslab.dto.AssetDto;
+import pl.coderslab.model.Article;
+import pl.coderslab.model.Asset;
 
 import java.nio.file.Path;
 import java.util.stream.Stream;
@@ -20,4 +24,8 @@ public interface AssetService {
     String getFileExtension(String filename);
 
     void deleteAll();
+
+    AssetDto convertToDto(Asset asset);
+
+    Asset convertToEntity(AssetDto assetDto);
 }

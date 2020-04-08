@@ -1,5 +1,6 @@
 package pl.coderslab.service.storage;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.config.StorageProperties;
+import pl.coderslab.dto.AssetDto;
 import pl.coderslab.exception.StorageException;
 import pl.coderslab.exception.StorageFileNotFoundException;
 import pl.coderslab.model.Asset;
@@ -26,11 +28,13 @@ public class AssetServiceImpl implements AssetService {
 
     private final Path rootLocation;
     private final AssetRepository assetRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public AssetServiceImpl(StorageProperties properties, AssetRepository assetRepository) {
+    public AssetServiceImpl(StorageProperties properties, AssetRepository assetRepository, ModelMapper modelMapper) {
         this.rootLocation = Paths.get(properties.getLocation());
         this.assetRepository = assetRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -112,5 +116,15 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
+    }
+
+    @Override
+    public AssetDto convertToDto(Asset asset) {
+        return modelMapper.map(asset, AssetDto.class);
+    }
+
+    @Override
+    public Asset convertToEntity(AssetDto assetDto) {
+        return modelMapper.map(assetDto, Asset.class);
     }
 }

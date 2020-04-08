@@ -1,5 +1,6 @@
 package pl.coderslab.service.article;
 
+import pl.coderslab.dto.ArticleDto;
 import pl.coderslab.model.Article;
 import pl.coderslab.model.Asset;
 
@@ -27,5 +28,8 @@ public interface ArticleService {
 
     void deleteById(Long id);
 
+    ArticleDto convertToDto(Article article);
+
+    Article convertToEntity(ArticleDto articleDto);
 }
 

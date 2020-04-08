@@ -1,7 +1,9 @@
 package pl.coderslab.service.article;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.coderslab.dto.ArticleDto;
 import pl.coderslab.model.Article;
 import pl.coderslab.model.Asset;
 import pl.coderslab.repository.ArticleRepository;
@@ -14,11 +16,13 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
     private final AssetRepository assetRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository articleRepository, AssetRepository assetRepository) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, AssetRepository assetRepository, ModelMapper modelMapper) {
         this.articleRepository = articleRepository;
         this.assetRepository = assetRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -79,5 +83,15 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void deleteById(Long id) {
         articleRepository.deleteById(id);
+    }
+
+    @Override
+    public ArticleDto convertToDto(Article article) {
+        return modelMapper.map(article, ArticleDto.class);
+    }
+
+    @Override
+    public Article convertToEntity(ArticleDto articleDto) {
+        return modelMapper.map(articleDto, Article.class);
     }
 }
