@@ -18,16 +18,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
-public class StorageServiceImpl implements StorageService {
+public class AssetServiceImpl implements AssetService {
 
     private final Path rootLocation;
     private final AssetRepository assetRepository;
 
     @Autowired
-    public StorageServiceImpl(StorageProperties properties, AssetRepository assetRepository) {
+    public AssetServiceImpl(StorageProperties properties, AssetRepository assetRepository) {
         this.rootLocation = Paths.get(properties.getLocation());
         this.assetRepository = assetRepository;
     }
@@ -42,22 +43,26 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public Long store(MultipartFile file) {
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file" + file.getOriginalFilename());
             }
+            String fileType = getFileExtension(file.getOriginalFilename());
+            String filename = UUID.randomUUID().toString() + fileType;
+
             //create a new asset
             Asset asset = new Asset();
-            asset.setAssetName(file.getOriginalFilename());
-            asset.setAssetType(getFileExtension(file.getOriginalFilename()));
-            asset.setAssetLocation(rootLocation.toFile().getAbsolutePath());
+            asset.setName(filename);
+            asset.setType(fileType);
+            asset.setLocation(rootLocation.toFile().getAbsolutePath());
 
             //copy a asset to rootLocation with the original name
-            Files.copy(file.getInputStream() , this.rootLocation.resolve(file.getOriginalFilename()));
+            Files.copy(file.getInputStream() , this.rootLocation.resolve(filename));
 
             //save asset
             assetRepository.save(asset);
+            return asset.getId();
         } catch (IOException e) {
             throw new StorageException("Failed to store file" + file.getOriginalFilename(), e);
         }
@@ -100,7 +105,7 @@ public class StorageServiceImpl implements StorageService {
         //return substring after last dot or empty string
         return Optional.of(filename)
                        .filter(f -> f.contains("."))
-                       .map(f -> f.substring(filename.lastIndexOf(".") + 1))
+                       .map(f -> f.substring(filename.lastIndexOf(".")))
                        .orElse("");
     }
 

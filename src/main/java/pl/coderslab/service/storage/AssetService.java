@@ -6,10 +6,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-public interface StorageService {
+public interface AssetService {
     void init();
 
-    void store(MultipartFile file);
+    Long store(MultipartFile file);
 
     Stream<Path> loadAll();
 
