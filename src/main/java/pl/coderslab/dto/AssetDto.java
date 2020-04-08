@@ -2,24 +2,24 @@ package pl.coderslab.dto;
 
 public class AssetDto {
     private long id;
-    private String assetName;
-    private String assetType;
-    private String assetLocation;
+    private String name;
+    private String type;
+    private String location;
 
     public AssetDto() {
     }
 
-    public AssetDto(String assetName, String assetType, String assetLocation) {
-        this.assetName = assetName;
-        this.assetType = assetType;
-        this.assetLocation = assetLocation;
+    public AssetDto(String name, String type, String location) {
+        this.name = name;
+        this.type = type;
+        this.location = location;
     }
 
-    public AssetDto(long id, String assetName, String assetType, String assetLocation) {
+    public AssetDto(long id, String name, String type, String location) {
         this.id = id;
-        this.assetName = assetName;
-        this.assetType = assetType;
-        this.assetLocation = assetLocation;
+        this.name = name;
+        this.type = type;
+        this.location = location;
     }
 
     //Getters & Setters
@@ -31,27 +31,27 @@ public class AssetDto {
         this.id = id;
     }
 
-    public String getAssetName() {
-        return assetName;
+    public String getName() {
+        return name;
     }
 
-    public void setAssetName(String assetName) {
-        this.assetName = assetName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAssetType() {
-        return assetType;
+    public String getType() {
+        return type;
     }
 
-    public void setAssetType(String assetType) {
-        this.assetType = assetType;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getAssetLocation() {
-        return assetLocation;
+    public String getLocation() {
+        return location;
     }
 
-    public void setAssetLocation(String assetLocation) {
-        this.assetLocation = assetLocation;
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

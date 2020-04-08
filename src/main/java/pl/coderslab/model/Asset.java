@@ -1,7 +1,6 @@
 package pl.coderslab.model;
 
 import javax.persistence.*;
-import java.nio.file.Path;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,11 +11,11 @@ public class Asset {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String assetName;
+    private String name;
 
-    private String assetType;
+    private String type;
 
-    private String assetLocation;
+    private String location;
 
     private LocalDateTime created;
 
@@ -47,28 +46,28 @@ public class Asset {
         this.id = id;
     }
 
-    public String getAssetName() {
-        return assetName;
+    public String getName() {
+        return name;
     }
 
-    public void setAssetName(String assetName) {
-        this.assetName = assetName;
+    public void setName(String assetName) {
+        this.name = assetName;
     }
 
-    public String getAssetType() {
-        return assetType;
+    public String getType() {
+        return type;
     }
 
-    public void setAssetType(String assetType) {
-        this.assetType = assetType;
+    public void setType(String assetType) {
+        this.type = assetType;
     }
 
-    public String getAssetLocation() {
-        return assetLocation;
+    public String getLocation() {
+        return location;
     }
 
-    public void setAssetLocation(String assetLocation) {
-        this.assetLocation = assetLocation;
+    public void setLocation(String assetLocation) {
+        this.location = assetLocation;
     }
 
     public LocalDateTime getCreated() {

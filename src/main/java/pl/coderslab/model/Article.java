@@ -13,13 +13,13 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String articleTitle;
+    private String title;
 
     @Column(columnDefinition = "TEXT")
-    private String articleBody;
+    private String body;
 
     @ManyToMany
-    private Set<Asset> assetList = new HashSet<>();
+    private Set<Asset> assets = new HashSet<>();
 
     private LocalDateTime created;
 
@@ -42,15 +42,15 @@ public class Article {
     }
 
     public void addAsset(Asset asset) {
-        this.assetList.add(asset);
+        this.assets.add(asset);
     }
 
     public void removeAsset(Asset asset) {
-        this.assetList.remove(asset);
+        this.assets.remove(asset);
     }
 
     public void removeAllAssets() {
-        this.assetList.clear();
+        this.assets.clear();
     }
 
     //Getters & Setters
@@ -62,28 +62,28 @@ public class Article {
         this.id = id;
     }
 
-    public String getArticleTitle() {
-        return articleTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle;
+    public void setTitle(String articleTitle) {
+        this.title = articleTitle;
     }
 
-    public String getArticleBody() {
-        return articleBody;
+    public String getBody() {
+        return body;
     }
 
-    public void setArticleBody(String articleBody) {
-        this.articleBody = articleBody;
+    public void setBody(String articleBody) {
+        this.body = articleBody;
     }
 
-    public Set<Asset> getAssetList() {
-        return assetList;
+    public Set<Asset> getAssets() {
+        return assets;
     }
 
-    public void setAssetList(Set<Asset> assetList) {
-        this.assetList = assetList;
+    public void setAssets(Set<Asset> assetList) {
+        this.assets = assetList;
     }
 
     public LocalDateTime getCreated() {
