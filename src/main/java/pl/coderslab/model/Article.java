@@ -2,6 +2,7 @@ package pl.coderslab.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,6 +44,10 @@ public class Article {
 
     public void addAsset(Asset asset) {
         this.assets.add(asset);
+    }
+
+    public void addMultipleAssets(Collection<Asset> collection) {
+        assets.addAll(collection);
     }
 
     public void removeAsset(Asset asset) {
