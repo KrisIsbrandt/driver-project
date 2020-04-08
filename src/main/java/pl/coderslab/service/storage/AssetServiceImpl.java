@@ -127,4 +127,9 @@ public class AssetServiceImpl implements AssetService {
     public Asset convertToEntity(AssetDto assetDto) {
         return modelMapper.map(assetDto, Asset.class);
     }
+
+    @Override
+    public Asset findById(long id) {
+        return assetRepository.findById(id).orElse(null);
+    }
 }

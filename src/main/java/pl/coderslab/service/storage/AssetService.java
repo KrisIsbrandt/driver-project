@@ -28,4 +28,6 @@ public interface AssetService {
     AssetDto convertToDto(Asset asset);
 
     Asset convertToEntity(AssetDto assetDto);
+
+    Asset findById(long id);
 }
