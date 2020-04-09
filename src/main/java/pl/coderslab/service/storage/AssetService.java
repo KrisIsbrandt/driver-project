@@ -8,6 +8,7 @@ import pl.coderslab.model.Article;
 import pl.coderslab.model.Asset;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.stream.Stream;
 
 public interface AssetService {
@@ -30,4 +31,8 @@ public interface AssetService {
     Asset convertToEntity(AssetDto assetDto);
 
     Asset findById(long id);
+
+    List<Asset> findAll();
+
+    void deleteById(long id);
 }

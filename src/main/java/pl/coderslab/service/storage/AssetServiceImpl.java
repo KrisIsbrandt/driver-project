@@ -19,6 +19,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -131,5 +132,15 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public Asset findById(long id) {
         return assetRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Asset> findAll() {
+        return assetRepository.findAll();
+    }
+
+    @Override
+    public void deleteById(long id) {
+        assetRepository.deleteById(id);
     }
 }
