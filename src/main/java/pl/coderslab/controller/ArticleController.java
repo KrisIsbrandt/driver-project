@@ -53,7 +53,7 @@ public class ArticleController {
     @ApiOperation(value = "Add an article")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long create(@ApiParam(value = "Article title", required = true) @RequestParam("title") String title,
+    public ArticleDto create(@ApiParam(value = "Article title", required = true) @RequestParam("title") String title,
                        @ApiParam(value = "Article body", required = true) @RequestParam("body") String body,
                        @ApiParam(value = "Optional array of files to be stored as assets assigned to article") @RequestParam(name = "file", required = false) MultipartFile[] files) {
         Article article = new Article();
@@ -64,11 +64,11 @@ public class ArticleController {
                     .collect(Collectors.toSet());
             article.addMultipleAssets(assets);
         }
-
         article.setTitle(title);
         article.setBody(body);
         checkNotNull(article);
-        return articleService.save(article);
+        article = articleService.save(article);
+        return articleService.convertToDto(article);
     }
 
     @ApiOperation(value = "Update an article")

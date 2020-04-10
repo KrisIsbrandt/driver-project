@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    Long save(Article article);
+    Article save(Article article);
 
     void update(Article article);
 

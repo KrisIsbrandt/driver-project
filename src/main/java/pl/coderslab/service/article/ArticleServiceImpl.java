@@ -26,9 +26,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Long save(Article article) {
+    public Article save(Article article) {
         articleRepository.save(article);
-        return article.getId();
+        return article;
     }
 
     @Override
