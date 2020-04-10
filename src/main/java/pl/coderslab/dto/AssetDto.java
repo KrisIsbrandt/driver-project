@@ -1,9 +1,23 @@
 package pl.coderslab.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotEmpty;
+
+@ApiModel(description = "All details about the Asset")
 public class AssetDto {
+
+    @ApiModelProperty(notes = "The database generated asset ID")
     private long id;
+
+    @ApiModelProperty(notes = "The asset name")
     private String name;
+
+    @ApiModelProperty(notes = "The asset file extension")
     private String type;
+
+    @ApiModelProperty(notes = "The asset location to href")
     private String location;
 
     public AssetDto() {

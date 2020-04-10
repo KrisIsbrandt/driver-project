@@ -1,12 +1,27 @@
 package pl.coderslab.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Set;
 
+@ApiModel(description = "All details about the Article.")
 public class ArticleDto{
+
+    @ApiModelProperty(notes = "The database generated article ID")
     private long id;
+
+    @ApiModelProperty(notes = "The article title")
+    @NotEmpty
     private String title;
+
+    @ApiModelProperty(notes = "The article body")
+    @NotEmpty
     private String body;
+
+    @ApiModelProperty(notes = "The article assigned assets")
     private Set<AssetDto> assets = new HashSet<>();
 
     public ArticleDto() {
