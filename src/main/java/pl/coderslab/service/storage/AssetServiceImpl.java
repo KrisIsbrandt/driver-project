@@ -53,13 +53,18 @@ public class AssetServiceImpl implements AssetService {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file" + file.getOriginalFilename());
             }
-            String fileType = getFileExtension(file.getOriginalFilename());
-            String filename = UUID.randomUUID().toString() + fileType;
+            String fileFormat = getFileExtension(file.getOriginalFilename());
+            String filename = UUID.randomUUID().toString() + fileFormat;
+
+            //check if allowed fileFormat
+            if(!StorageProperties.allowedFormat(fileFormat)) {
+                throw new StorageException(fileFormat + " is not allowed");
+            }
 
             //create a new asset
             Asset asset = new Asset();
             asset.setName(filename);
-            asset.setType(fileType);
+            asset.setType(fileFormat);
             asset.setLocation(rootLocation.toFile().getAbsolutePath());
 
             //copy a asset to rootLocation with the original name

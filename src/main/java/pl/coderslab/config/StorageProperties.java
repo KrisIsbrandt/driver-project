@@ -7,9 +7,22 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class StorageProperties {
 
 	//Folder location where files are stored
-	@Value("storage.location")
+	@Value("${storage.location}")
 	private String location;
 
+	@Value("${storage.allowedFormats}")
+	private static String[] allowedFormats;
+
+	public static boolean allowedFormat(String fileFormat) {
+		for (String allowedFormat : allowedFormats) {
+			if (allowedFormat.equals(fileFormat)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	//Getters & Setters
 	public String getLocation() {
 		return location;
 	}
@@ -18,4 +31,11 @@ public class StorageProperties {
 		this.location = location;
 	}
 
+	public String[] getAllowedFormats() {
+		return allowedFormats;
+	}
+
+	public void setAllowedFormats(String[] allowedFormats) {
+		this.allowedFormats = allowedFormats;
+	}
 }
