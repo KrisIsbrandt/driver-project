@@ -58,7 +58,7 @@ public class ArticleController {
                        @ApiParam(value = "Optional array of files to be stored as assets assigned to article") @RequestParam(name = "file", required = false) MultipartFile[] files) {
         Article article = new Article();
 
-        if (files.length > 0) {
+        if (files != null) {
             Set<Asset> assets = Arrays.stream(files)
                     .map(assetService::store)
                     .collect(Collectors.toSet());
@@ -80,7 +80,7 @@ public class ArticleController {
                        @ApiParam(value = "Optional array of files to override existing assigned assets to article. If not provided then updated article object will have no assets assigned", required = true) @RequestParam(name = "file", required = false) MultipartFile[] files) {
         Article article = checkFound(articleService.findById(id));
         article.removeAllAssets();
-        if (files.length > 0) {
+        if (files != null) {
             Set<Asset> assets = Arrays.stream(files)
                     .map(assetService::store)
                     .collect(Collectors.toSet());
@@ -103,7 +103,7 @@ public class ArticleController {
     @ApiOperation(value = "Get assets assigned to an article")
     @GetMapping(value = "/{id}/assets")
     public Set<AssetDto> getAssetsByArticleId(@ApiParam(value = "Article Id from which article's assets object will retrieve", required = true)  @PathVariable("id") long id,
-                                              @ApiParam(value = "Optional asset Id to retrieve only specific asset object") @RequestParam(value = "assetId", required = false) long assetId) {
+                                              @ApiParam(value = "Optional asset Id to retrieve only specific asset object") @RequestParam(value = "assetId", required = false, defaultValue = "0") long assetId) {
         Article article = checkFound(articleService.findById(id));
         if (assetId > 0) {
             return article.getAssets().stream()
