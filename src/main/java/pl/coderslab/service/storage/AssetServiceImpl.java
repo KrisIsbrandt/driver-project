@@ -148,4 +148,13 @@ public class AssetServiceImpl implements AssetService {
     public void deleteById(long id) {
         assetRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteStoredFile(String filename) {
+        try {
+            Files.delete(this.rootLocation.resolve(filename));
+        } catch (IOException e) {
+            throw new StorageException("Failed to delete stored file" + filename, e);
+        }
+    }
 }

@@ -35,4 +35,6 @@ public interface AssetService {
     List<Asset> findAll();
 
     void deleteById(long id);
+
+    void deleteStoredFile(String filename);
 }
