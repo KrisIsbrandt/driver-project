@@ -2,12 +2,14 @@ package pl.coderslab.service.storage;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
-import pl.coderslab.config.StorageProperties;
+import pl.coderslab.config.StorageConfig;
 import pl.coderslab.dto.AssetDto;
 import pl.coderslab.exception.StorageException;
 import pl.coderslab.exception.StorageFileNotFoundException;
@@ -25,17 +27,22 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
-public class AssetServiceImpl implements AssetService {
+public class AssetServiceImplWithLocalStorage implements AssetService {
 
-    private final Path rootLocation;
     private final AssetRepository assetRepository;
     private final ModelMapper modelMapper;
+    private Path rootLocation;
+    private String[] allowedFormats;
 
     @Autowired
-    public AssetServiceImpl(StorageProperties properties, AssetRepository assetRepository, ModelMapper modelMapper) {
-        this.rootLocation = Paths.get(properties.getLocation());
+    public AssetServiceImplWithLocalStorage(AssetRepository assetRepository,
+                                            ModelMapper modelMapper,
+                                            @Value("${storage.location}") String location,
+                                            @Value("${storage.allowedFormats}") String[] allowedFormats) {
         this.assetRepository = assetRepository;
         this.modelMapper = modelMapper;
+        this.rootLocation = Paths.get(location);
+        this.allowedFormats = allowedFormats;
     }
 
     @Override
@@ -57,7 +64,7 @@ public class AssetServiceImpl implements AssetService {
             String filename = UUID.randomUUID().toString() + fileFormat;
 
             //check if allowed fileFormat
-            if(!StorageProperties.allowedFormat(fileFormat)) {
+            if(!isAllowedFormat(fileFormat)) {
                 throw new StorageException(fileFormat + " is not allowed");
             }
 
@@ -156,5 +163,14 @@ public class AssetServiceImpl implements AssetService {
         } catch (IOException e) {
             throw new StorageException("Failed to delete stored file" + filename, e);
         }
+    }
+
+    private boolean isAllowedFormat(String fileFormat) {
+        for (String allowedFormat : allowedFormats) {
+            if (allowedFormat.equals(fileFormat)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
