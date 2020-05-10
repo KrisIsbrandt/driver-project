@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <form method="POST" enctype="multipart/form-data" action="/api/v1/articles">
+        <table>
+            <tr><h2>Create a new article</h2></tr>
+            <tr>
+                <td>Title:</td>
+                <td><input type="text" name="title"/></td>
+            </tr>
+            <tr>
+                <td>Body:</td>
+                <td><textarea rows = "5" cols = "50" name = "body"></textarea></td>
+            </tr>
+            <tr>
+                <td>File to upload:</td>
+                <td><input type="file" name="file" /></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Upload" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
