@@ -1,33 +1,20 @@
 package pl.coderslab.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.model.User;
 import pl.coderslab.service.user.UserService;
 
 @Controller
-public class HomeController {
+public class AdminController {
 
-    private final UserService userService;
+    private UserService userService;
 
     @Autowired
-    public HomeController(UserService userService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
-    }
-
-    @RequestMapping("/")
-    public String index() {
-        return "index";
-    }
-
-    @GetMapping("/admin")
-    @ResponseBody
-    public String admin() {
-        return "admin";
     }
 
     @GetMapping("/create-user")
@@ -37,7 +24,8 @@ public class HomeController {
         user.setUsername("admin");
         user.setPassword("admin");
         userService.save(user);
-        return "-created-";
+        return "<h2>created admin account<h2></br>" +
+                "login: admin </br>" +
+                "password: admin";
     }
-
 }

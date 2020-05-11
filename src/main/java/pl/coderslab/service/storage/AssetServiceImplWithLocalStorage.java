@@ -43,7 +43,6 @@ public class AssetServiceImplWithLocalStorage implements AssetService {
         this.modelMapper = modelMapper;
         this.rootLocation = Paths.get(location);
         this.allowedFormats = allowedFormats;
-        this.init();
     }
 
     @Override

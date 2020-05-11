@@ -15,6 +15,7 @@ import pl.coderslab.service.storage.AssetService;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static pl.coderslab.service.RestPredictions.checkFound;
@@ -60,6 +61,7 @@ public class ArticleController {
 
         if (files != null) {
             Set<Asset> assets = Arrays.stream(files)
+                    .filter(Predicate.not(MultipartFile::isEmpty))
                     .map(assetService::store)
                     .collect(Collectors.toSet());
             article.addMultipleAssets(assets);
@@ -80,8 +82,10 @@ public class ArticleController {
                        @ApiParam(value = "Optional array of files to override existing assigned assets to article. If not provided then updated article object will have no assets assigned", required = true) @RequestParam(name = "file", required = false) MultipartFile[] files) {
         Article article = checkFound(articleService.findById(id));
         article.removeAllAssets();
+
         if (files != null) {
             Set<Asset> assets = Arrays.stream(files)
+                    .filter(Predicate.not(MultipartFile::isEmpty))
                     .map(assetService::store)
                     .collect(Collectors.toSet());
             article.addMultipleAssets(assets);
@@ -124,6 +128,7 @@ public class ArticleController {
                                      @ApiParam(value = "Array of files to be converted and assigned as assets to article", required = true) @RequestParam("file") MultipartFile[] files) {
         Article article = checkFound(articleService.findById(id));
         Set<Asset> assets = Arrays.stream(files)
+                .filter(Predicate.not(MultipartFile::isEmpty))
                 .map(assetService::store)
                 .collect(Collectors.toSet());
         article.addMultipleAssets(assets);

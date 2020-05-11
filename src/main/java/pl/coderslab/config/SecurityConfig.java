@@ -27,16 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable();
-
-        http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/admin").authenticated()
-                .and().formLogin();
-    }
-
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -47,5 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable();
+
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/admin").authenticated()
+                .and().formLogin();
     }
 }
