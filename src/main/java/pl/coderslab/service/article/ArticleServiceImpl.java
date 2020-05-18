@@ -2,13 +2,14 @@ package pl.coderslab.service.article;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 import pl.coderslab.dto.ArticleDto;
 import pl.coderslab.model.Article;
 import pl.coderslab.model.Asset;
 import pl.coderslab.repository.ArticleRepository;
 import pl.coderslab.repository.AssetRepository;
-
 import java.util.List;
 
 @Service
@@ -73,6 +74,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> findAll() {
         return articleRepository.findAll();
+    }
+
+    @Override
+    public Page<Article> findAll(Pageable pageable) {
+        return articleRepository.findAll(pageable);
     }
 
     @Override

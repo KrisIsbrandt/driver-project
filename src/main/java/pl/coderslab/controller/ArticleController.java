@@ -2,16 +2,24 @@ package pl.coderslab.controller;
 
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriComponentsBuilder;
 import pl.coderslab.dto.ArticleDto;
 import pl.coderslab.dto.AssetDto;
+import pl.coderslab.event.PaginatedResultsRetrievedEvent;
+import pl.coderslab.exception.ResourceNotFoundException;
 import pl.coderslab.model.Article;
 import pl.coderslab.model.Asset;
 import pl.coderslab.service.article.ArticleService;
 import pl.coderslab.service.storage.AssetService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -28,15 +36,36 @@ public class ArticleController {
 
     private final ArticleService articleService;
     private final AssetService assetService;
+    private ApplicationEventPublisher eventPublisher;
 
     @Autowired
-    public ArticleController(ArticleService articleService, AssetService assetService) {
+    public ArticleController(ArticleService articleService, AssetService assetService, ApplicationEventPublisher eventPublisher) {
         this.articleService = articleService;
         this.assetService = assetService;
+        this.eventPublisher = eventPublisher;
     }
 
     @ApiOperation(value = "View a list of available articles", response = List.class)
     @GetMapping
+    public List<ArticleDto> findPaginated(
+            @ApiParam(value = "Retrieved page number") @RequestParam(name = "page", required = false, defaultValue = "${request.defaultPageValue}") int page,
+            @ApiParam(value = "Number of objects per page") @RequestParam(name = "size", required = false, defaultValue = "${request.defaultSizeValue}") int size,
+            final UriComponentsBuilder uriBuilder,
+            final HttpServletResponse response) {
+        Page<Article> resultPage = checkFound(articleService.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "created"))));
+        if (page > resultPage.getTotalPages()) {
+            throw new ResourceNotFoundException("Page parameter exceeded the total number of found pages");
+        }
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<Article>(Article.class,
+                uriBuilder, response, page, resultPage.getTotalPages(), size));
+
+        return resultPage.stream()
+                .map(articleService::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @ApiOperation(value = "View a list of available articles", response = List.class)
+    @GetMapping("/other")
     public List<ArticleDto> findAll() {
         List<Article> articles = checkFound(articleService.findAll());
         return articles.stream()

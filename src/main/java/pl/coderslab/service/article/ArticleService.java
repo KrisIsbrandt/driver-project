@@ -1,9 +1,10 @@
 package pl.coderslab.service.article;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import pl.coderslab.dto.ArticleDto;
 import pl.coderslab.model.Article;
 import pl.coderslab.model.Asset;
-
 import java.util.List;
 
 public interface ArticleService {
@@ -23,6 +24,8 @@ public interface ArticleService {
     void removeAllAssets(Article article);
 
     List<Article> findAll();
+
+    Page<Article> findAll(Pageable pageable);
 
     Article findById(Long id);
 
