@@ -34,17 +34,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
+        configuration.addExposedHeader("Link");
+        configuration.addExposedHeader("Current-Page");
+        configuration.addExposedHeader("Total-Pages");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
 
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/admin").authenticated()
-                .and().formLogin();
+                .antMatchers("/admin").authenticated().and().formLogin();
     }
 }

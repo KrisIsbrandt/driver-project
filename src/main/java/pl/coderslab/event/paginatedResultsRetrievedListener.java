@@ -15,12 +15,13 @@ public class paginatedResultsRetrievedListener implements ApplicationListener<Pa
 
     @Override
     public void onApplicationEvent(PaginatedResultsRetrievedEvent event) {
-        addPagedResourceNavigationLinksIntoHeader(event.getUriBuilder(), event.getClazz(), event.getResponse(), event.getPage(), event.getTotalPages(), event.getSize());
+        addPagedResourceNavigationLinksIntoHeader(event.getUriBuilder(), event.getClazz(), event.getResponse(), event.getApiEndpointPrefix(), event.getPage(), event.getTotalPages(), event.getSize());
     }
 
-    void addPagedResourceNavigationLinksIntoHeader(UriComponentsBuilder uriBuilder, Class clazz, HttpServletResponse response,
+    void addPagedResourceNavigationLinksIntoHeader(UriComponentsBuilder uriBuilder, Class clazz,
+                                                   HttpServletResponse response, String apiEndpointPrefix,
                                                    int page, int totalPages, int size) {
-        setResourceInPath(uriBuilder, clazz);
+        setResourceInPath(uriBuilder, clazz, apiEndpointPrefix);
         StringJoiner linkHeader = new StringJoiner(", ");
 
         if (hasNextPage(page, totalPages)) {
@@ -39,12 +40,14 @@ public class paginatedResultsRetrievedListener implements ApplicationListener<Pa
         }
 
         if (hasLastPage(page, totalPages)) {
-            String uriForLastPage = constructLastPageUri(uriBuilder, totalPages, size);
+            String uriForLastPage = constructLastPageUri(uriBuilder, totalPages - 1, size);
             linkHeader.add(createLinkHeader(uriForLastPage, Relation.REL_LAST));
         }
 
         if (linkHeader.length() > 0) {
             response.addHeader("Link", linkHeader.toString());
+            response.addHeader("Current-Page", String.valueOf(page));
+            response.addHeader("Total-Pages", String.valueOf(totalPages));
     }
 }
 
@@ -89,8 +92,8 @@ public class paginatedResultsRetrievedListener implements ApplicationListener<Pa
     }
 
 
-    private void setResourceInPath(UriComponentsBuilder uriBuilder, Class clazz) {
+    private void setResourceInPath(UriComponentsBuilder uriBuilder, Class clazz, String apiEndpointPrefix) {
         String resourceName = clazz.getSimpleName().toLowerCase() + "s";
-        uriBuilder.path("/api/v1/" + resourceName);
+        uriBuilder.path(apiEndpointPrefix + resourceName);
     }
 }

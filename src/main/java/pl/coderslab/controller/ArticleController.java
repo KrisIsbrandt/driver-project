@@ -56,8 +56,9 @@ public class ArticleController {
         if (page > resultPage.getTotalPages()) {
             throw new ResourceNotFoundException("Page parameter exceeded the total number of found pages");
         }
+        String apiEndpointPrefix = "/api/v1/";
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<Article>(Article.class,
-                uriBuilder, response, page, resultPage.getTotalPages(), size));
+                uriBuilder, response, apiEndpointPrefix, page, resultPage.getTotalPages(), size));
 
         return resultPage.stream()
                 .map(articleService::convertToDto)

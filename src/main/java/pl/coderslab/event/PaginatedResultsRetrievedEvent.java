@@ -10,6 +10,7 @@ public class PaginatedResultsRetrievedEvent<T extends Serializable> extends Appl
 
     private final UriComponentsBuilder uriBuilder;
     private final HttpServletResponse response;
+    private final String apiEndpointPrefix;
     private final int page;
     private final int totalPages;
     private final int size;
@@ -17,12 +18,14 @@ public class PaginatedResultsRetrievedEvent<T extends Serializable> extends Appl
     public PaginatedResultsRetrievedEvent(Class<T> clazz,
                                           UriComponentsBuilder uriBuilder,
                                           HttpServletResponse response,
+                                          String apiEndpointPrefix,
                                           int page,
                                           int totalPages,
                                           int size) {
         super(clazz);
         this.uriBuilder = uriBuilder;
         this.response = response;
+        this.apiEndpointPrefix = apiEndpointPrefix;
         this.page = page;
         this.totalPages = totalPages;
         this.size = size;
@@ -50,5 +53,9 @@ public class PaginatedResultsRetrievedEvent<T extends Serializable> extends Appl
 
     public int getSize() {
         return size;
+    }
+
+    public String getApiEndpointPrefix() {
+        return apiEndpointPrefix;
     }
 }
