@@ -16,6 +16,7 @@ import pl.coderslab.event.PaginatedResultsRetrievedEvent;
 import pl.coderslab.exception.ResourceNotFoundException;
 import pl.coderslab.model.Article;
 import pl.coderslab.model.Asset;
+import pl.coderslab.service.RestPredictions;
 import pl.coderslab.service.article.ArticleService;
 import pl.coderslab.service.storage.AssetService;
 
@@ -26,6 +27,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static pl.coderslab.service.RestPredictions.*;
 import static pl.coderslab.service.RestPredictions.checkFound;
 import static pl.coderslab.service.RestPredictions.checkNotNull;
 
@@ -96,8 +98,8 @@ public class ArticleController {
                     .collect(Collectors.toSet());
             article.addMultipleAssets(assets);
         }
-        article.setTitle(title);
-        article.setBody(body);
+        article.setTitle(convertNewlineCharacterToHTMLBreakTag(title));
+        article.setBody(convertNewlineCharacterToHTMLBreakTag(body));
         checkNotNull(article);
         article = articleService.save(article);
         return articleService.convertToDto(article);
@@ -120,8 +122,8 @@ public class ArticleController {
                     .collect(Collectors.toSet());
             article.addMultipleAssets(assets);
         }
-        article.setTitle(title);
-        article.setBody(body);
+        article.setTitle(convertNewlineCharacterToHTMLBreakTag(title));
+        article.setBody(convertNewlineCharacterToHTMLBreakTag(body));
         checkNotNull(article);
         articleService.update(article);
     }

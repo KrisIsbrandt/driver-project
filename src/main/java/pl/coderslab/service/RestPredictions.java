@@ -16,4 +16,18 @@ public class RestPredictions {
         }
         return resource;
     }
+
+    public static String convertNewlineCharacterToHTMLBreakTag(String text) {
+        String newText = text.replaceAll("(\r\n)+", "<br>");
+
+        if (newText.contains("\r")) {
+            newText = newText.replaceAll("\r+", "<br>");
+        }
+
+        if (newText.contains("\n")) {
+            newText = newText.replaceAll("\n+", "<br>");
+        }
+
+        return newText;
+    }
 }
