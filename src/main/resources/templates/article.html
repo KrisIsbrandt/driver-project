@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Learn to drive</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="articleId" th:value="${articleId}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/app.js}"></script>
+    <script>connect(articleLink, "article")</script>
+    <style>
+        body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+    </style>
+</head>
+<body class="w3-light-grey">
+
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+            <a href="/" class="w3-bar-item w3-button">Nauka bezpiecznej jazdy</a>
+        </div>
+    </div>
+    <div style="height: 3em"></div>
+
+        <!-- Article -->
+        <div class="w3-card w3-margin w3-margin-top">
+            <div class="w3-container w3-white" id="articleContainer">
+                <h4 id="articleTitle"><b>TITLE</b></h4>
+                <hr>
+                <p id="articleBody">Somtheing went wrong :(</p>
+            </div>
+        </div>
+
+        <!-- END w3-content -->
+    </div>
+
+    <!-- Footer -->
+    <footer class="w3-container w3-grey w3-padding-16 w3-margin-top">
+        <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
+            <br>with some love from Kris Isbrandt</p>
+    </footer>
+
+</body>
+</html>

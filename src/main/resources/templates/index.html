@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Learn to drive</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/app.js}"></script>
+<script>connect()</script>
+<style>
+    body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+    <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+        <a href="/" class="w3-bar-item w3-button">Nauka bezpiecznej jazdy</a>
+    </div>
+</div>
+<div style="height: 3em"></div>
+
+<!-- w3-content defines a container for fixed size centered content,
+and is wrapped around the whole page content, except for the footer in this example -->
+<div class="w3-content" style="max-width:1400px">
+
+    <!-- Grid -->
+    <div class="w3-row">
+
+        <!-- Blog entries -->
+        <div id="articles" class="w3-col l8 s12"></div>
+
+        <!-- Introduction menu -->
+        <div class="w3-col l4">
+            <!-- About Card -->
+            <div class="w3-card w3-margin w3-margin-top">
+                <div class="w3-container w3-white">
+                    <h4><b>Cel projektu</b></h4>
+                    <p>Polska jest w czołówce niechlubnego rankingu najbardziej niebezpiecznych państw Unii Europejskiej. Liczba ofiar wypadków drogowych wzrasta z roku na rok.</p>
+                    <p>W celu poprawy tego stanu, powstała to oto strona. Zamieszczone artykuły mają na celu pomóc kierowcą poprawić swoją znajomość poruszania się w ruchu drogowym, a tym samym poprawić bezpieczeństwo nas wszystkich.</p>
+                </div>
+            </div>
+
+            <!-- END Introduction Menu -->
+        </div>
+
+        <!-- END GRID -->
+    </div><br>
+
+    <!-- END w3-content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-grey w3-padding-16 w3-margin-top">
+    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
+        <br>with some love from Kris Isbrandt</p>
+</footer>
+
+</body>
+</html>
