@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div>
+    <nav class="sb-topnav navbar navbar-expand navbar-light bg-light">
+        <a class="navbar-tabs font-weight-bold" th:href="@{/admin/articles}">Articles</a>
+<!--        <a class="navbar-tabs" th:href="@{/admin/assets}">Assets</a>-->
+
+        <a class="navbar-tabs right" href="@{/logout}">Logout</a>
+    </nav>
+    <div class="container-fluid">
+        <form method="POST" enctype="multipart/form-data" th:action="@{/admin/articles/form}">
+            <input type="hidden" name="id" th:value="${id}">
+            <h1 class="mt-4">Article Editor</h1>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <input type="submit" class="btn btn-primary btn-icon-split float-right" value="Save" />
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <div id="assets-container" class="card mb-4 clearfix" style="width: 22%; float: left">
+                    <h3 style="padding-left: 0.25em">Assets</h3>
+                </div>
+                <div style="width: 1%"></div>
+                <div class="card mb-4" style="width: 77%; float: right">
+                    <h3 style="padding-left: 0.25em">Content</h3>
+                    <p>
+                        <input class="article-input" type="text" placeholder="My title" name="title" th:value="${title}"/>
+                    </p>
+                    <hr>
+                    <div style="clear: both;">
+                        <textarea class="article-input" rows="10" placeholder="Once upon a time..." name="body" th:inline="text">[[${body}]]></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/adminArticleForm.js}"></script>
+</body>
+</html>
