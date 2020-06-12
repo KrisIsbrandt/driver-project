@@ -1,0 +1,9 @@
+DO ZROBIENIA
+-ograniczenie formatu plikow do storowania - DONE
+-Testy API i REST - DONE
+-Storage na s3 plików - DONE
+-Paginacja i sortowanie wynikow - DONE
+
+-Klient do API do tworzenia, ogladania artykulow, prosta wersja
+
+-zrobienie admina
