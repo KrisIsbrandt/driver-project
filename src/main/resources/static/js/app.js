@@ -1,4 +1,4 @@
-const ROOT = location.protocol + '//' + location.hostname
+const ROOT = location.protocol + '//'+ location.hostname + '/';
 var linkMap = {};
 var httpHeaderLink = "";
 var currentPage = 0;
