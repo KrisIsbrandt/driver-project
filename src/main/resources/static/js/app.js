@@ -1,4 +1,4 @@
-const ROOT = "http://localhost:8080/";
+const ROOT = location.protocol + '//' + location.hostname
 var linkMap = {};
 var httpHeaderLink = "";
 var currentPage = 0;
