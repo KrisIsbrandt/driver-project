@@ -1,1 +1,1 @@
-web: vendor/bin/heroku-php-apache2 public/ 
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* pl.coderslab.driver
