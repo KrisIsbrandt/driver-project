@@ -1,6 +1,10 @@
 package pl.coderslab.controller;
 
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
@@ -16,7 +20,6 @@ import pl.coderslab.event.PaginatedResultsRetrievedEvent;
 import pl.coderslab.exception.ResourceNotFoundException;
 import pl.coderslab.model.Article;
 import pl.coderslab.model.Asset;
-import pl.coderslab.service.RestPredictions;
 import pl.coderslab.service.article.ArticleService;
 import pl.coderslab.service.storage.AssetService;
 
@@ -28,13 +31,13 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static pl.coderslab.service.RestPredictions.*;
-import static pl.coderslab.service.RestPredictions.checkFound;
-import static pl.coderslab.service.RestPredictions.checkNotNull;
 
 @RestController
 @RequestMapping("/api/v1/articles")
 @Api(value = "Article Management Operations")
 public class ArticleController {
+
+    private static Logger logger = LogManager.getLogger(ArticleController.class);
 
     private final ArticleService articleService;
     private final AssetService assetService;
@@ -89,6 +92,8 @@ public class ArticleController {
     public ArticleDto create(@ApiParam(value = "Article title", required = true) @RequestParam("title") String title,
                        @ApiParam(value = "Article body", required = true) @RequestParam("body") String body,
                        @ApiParam(value = "Optional array of files to be stored as assets assigned to article") @RequestParam(name = "file", required = false) MultipartFile[] files) {
+        logger.info("New article with title:" + title);
+        logger.info("New article with body:" + body);
         Article article = new Article();
 
         if (files != null) {
@@ -102,6 +107,8 @@ public class ArticleController {
         article.setBody(convertNewlineCharacterToHTMLBreakTag(body));
         checkNotNull(article);
         article = articleService.save(article);
+
+        logger.info("New article saved: " + article.toString());
         return articleService.convertToDto(article);
     }
 
