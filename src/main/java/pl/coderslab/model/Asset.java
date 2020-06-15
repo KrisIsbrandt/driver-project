@@ -93,4 +93,17 @@ public class Asset {
     public void setVersion(int version) {
         this.version = version;
     }
+
+    @Override
+    public String toString() {
+        return "Asset{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", location='" + location + '\'' +
+                ", created=" + created +
+                ", updated=" + updated +
+                ", version=" + version +
+                '}';
+    }
 }

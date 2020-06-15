@@ -116,4 +116,16 @@ public class Article implements Serializable {
         this.version = version;
     }
 
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", assets=" + assets +
+                ", created=" + created +
+                ", updated=" + updated +
+                ", version=" + version +
+                '}';
+    }
 }

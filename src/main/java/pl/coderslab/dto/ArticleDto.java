@@ -70,4 +70,14 @@ public class ArticleDto{
     public void setAssets(Set<AssetDto> assets) {
         this.assets = assets;
     }
+
+    @Override
+    public String toString() {
+        return "ArticleDto{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", assets=" + assets +
+                '}';
+    }
 }

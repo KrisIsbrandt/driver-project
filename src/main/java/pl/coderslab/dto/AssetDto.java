@@ -68,4 +68,14 @@ public class AssetDto {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    @Override
+    public String toString() {
+        return "AssetDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", location='" + location + '\'' +
+                '}';
+    }
 }
