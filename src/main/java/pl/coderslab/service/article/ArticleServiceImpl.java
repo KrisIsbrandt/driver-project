@@ -28,7 +28,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article save(Article article) {
-        System.out.println(article.toString());
         articleRepository.save(article);
         return article;
     }
