@@ -94,6 +94,8 @@ public class ArticleController {
                        @ApiParam(value = "Optional array of files to be stored as assets assigned to article") @RequestParam(name = "file", required = false) MultipartFile[] files) {
         logger.info("New article with title:" + title);
         logger.info("New article with body:" + body);
+        System.out.println(title);
+        System.out.println(body);
         Article article = new Article();
 
         if (files != null) {
@@ -109,6 +111,7 @@ public class ArticleController {
         article = articleService.save(article);
 
         logger.info("New article saved: " + article.toString());
+        System.out.println(article.toString());
         return articleService.convertToDto(article);
     }
 
