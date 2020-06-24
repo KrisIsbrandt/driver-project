@@ -21,6 +21,7 @@ public class Article implements Serializable {
     private String body;
 
     @ManyToMany
+    @OrderBy(value = "id asc")
     private Set<Asset> assets = new HashSet<>();
 
     private LocalDateTime created;

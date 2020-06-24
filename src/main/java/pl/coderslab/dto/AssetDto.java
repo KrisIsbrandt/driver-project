@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotEmpty;
 
 @ApiModel(description = "All details about the Asset")
-public class AssetDto {
+public class AssetDto implements Comparable<AssetDto> {
 
     @ApiModelProperty(notes = "The database generated asset ID")
     private long id;
@@ -77,5 +77,10 @@ public class AssetDto {
                 ", type='" + type + '\'' +
                 ", location='" + location + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(AssetDto o) {
+        return (int) (getId() - o.getId());
     }
 }

@@ -3,12 +3,15 @@ package pl.coderslab.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.OrderBy;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 @ApiModel(description = "All details about the Article.")
-public class ArticleDto{
+public class ArticleDto {
 
     @ApiModelProperty(notes = "The database generated article ID")
     private long id;
@@ -22,7 +25,8 @@ public class ArticleDto{
     private String body;
 
     @ApiModelProperty(notes = "The article assigned assets")
-    private Set<AssetDto> assets = new HashSet<>();
+    @OrderBy()
+    private SortedSet<AssetDto> assets = new TreeSet<AssetDto>();
 
     public ArticleDto() {
     }
@@ -67,7 +71,12 @@ public class ArticleDto{
         return assets;
     }
 
-    public void setAssets(Set<AssetDto> assets) {
+//    public void setAssets(Set<AssetDto> assets) {
+//        this.assets = assets;
+//    }
+
+
+    public void setAssets(SortedSet<AssetDto> assets) {
         this.assets = assets;
     }
 
