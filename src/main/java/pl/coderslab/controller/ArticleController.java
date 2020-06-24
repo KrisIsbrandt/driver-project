@@ -108,15 +108,14 @@ public class ArticleController {
         return articleService.convertToDto(article);
     }
 
-    @ApiOperation(value = "Update an article")
+    @ApiOperation(value = "Update the article's title and body")
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void update(@ApiParam(value = "Article Id to update article object", required = true) @PathVariable("id") long id,
                        @ApiParam(value = "Article title", required = true) @RequestParam("title") String title,
                        @ApiParam(value = "Article body", required = true) @RequestParam("body") String body,
-                       @ApiParam(value = "Optional array of files to override existing assigned assets to article. If not provided then updated article object will have no assets assigned", required = true) @RequestParam(name = "file", required = false) MultipartFile[] files) {
+                       @ApiParam(value = "Optional array of files to add to existing assigned assets to article.") @RequestParam(name = "file", required = false) MultipartFile[] files) {
         Article article = checkFound(articleService.findById(id));
-        article.removeAllAssets();
 
         if (files != null) {
             Set<Asset> assets = Arrays.stream(files)
@@ -125,6 +124,7 @@ public class ArticleController {
                     .collect(Collectors.toSet());
             article.addMultipleAssets(assets);
         }
+
         article.setTitle(convertNewlineCharacterToHTMLBreakTag(title));
         article.setBody(convertNewlineCharacterToHTMLBreakTag(body));
         checkNotNull(article);

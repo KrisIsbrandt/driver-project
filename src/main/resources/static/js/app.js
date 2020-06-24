@@ -1,4 +1,9 @@
-const ROOT = location.protocol + '//'+ location.hostname + '/';
+var ROOT;
+if (location.port !== "8080") {
+     ROOT = location.protocol + '//'+ location.hostname + '/';
+} else {
+    ROOT = "http://localhost:8080/";
+}
 var linkMap = {};
 var httpHeaderLink = "";
 var currentPage = 0;
@@ -57,23 +62,23 @@ function createNewEntry(article, appendHere) {
     var entry = [
         "<div class=\"w3-card-4 w3-margin w3-white\">",
         "<div class=\"w3-container\">",
-        "<h3><b>", articleTitle,"</b></h3>",
+        "<h3 style=\"margin-top: 0.25em;\"><b>", articleTitle,"</b></h3>",
         "</div>",
         "<div class=\"w3-container\">",
         "<div style=\"width: 30%; float: left; padding-bottom: 10px\">"
     ];
 
     //Check if an article has any assets, if not then do not add any image
-    var imageLocation = article.assets[0];
-    if (typeof imageLocation !== 'undefined' || imageLocation !== null) {
-        var image = "<img src=\"" + imageLocation.location + "\" style=\"width:80%; height: 80%\">";
+    var asset = article.assets[0];
+    if (typeof asset !== 'undefined') {
+        var image = "<a href=\"" + linkToArticle + "\"><img src=\"" + asset.location + "\" style=\"width:80%; height: 80%\"></a>";
         entry.push(image);
     }
 
     var part2 = [
         "</div>",
         "<div style=\"width: 70%; float: right; padding-left: 10px\">",
-        "<p>", articleBody, "</p>",
+        "<p>", replacePlaceholdersWithBlank(articleBody) , "</p>",
         "<div>",
         "<p><a class=\"w3-button w3-padding-large w3-white w3-border\" href=\"", linkToArticle,"\"><b>READ MORE »</b></a></p>",
         "</div>",
@@ -139,12 +144,16 @@ function createPagination(link, currentPage, totalPages) {
 }
 
 function replacePlaceholdersWithAssets(text, assets) {
-    for (let i = 0; i < assets.length; i++) {
+    var length = assets.length;
+    for (let i = 0; i < length; i++) {
         var x = '#asset' + (i + 1) + '#';
         var pattern = new RegExp(x, "g");
         var image = "<img id=\"asset" + i + "\" class='article' src=\"" + assets[i].location + "\">";
         text = text.replace(pattern, image);
     }
-
     return text;
+}
+
+function replacePlaceholdersWithBlank(text) {
+    return text.replace(/#asset\d#/g, "");
 }

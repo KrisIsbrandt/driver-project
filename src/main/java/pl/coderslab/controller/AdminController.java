@@ -58,6 +58,7 @@ public class AdminController {
             model.addAttribute("id", id);
             model.addAttribute("title", article.getTitle());
             model.addAttribute("body", article.getBody());
+            model.addAttribute("assets", article.getAssets());
             return "adminArticleForm";
         }
         return "adminArticleForm";
