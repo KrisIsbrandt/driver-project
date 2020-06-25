@@ -44,6 +44,7 @@ function renderArticle(output) {
     var articleTitle = $('#articleTitle');
     var articleBody = $('#articleBody');
     var text = replacePlaceholdersWithAssets(output.body, output.assets);
+        text = replacePlaceholdersWithBlank(text);
 
     articleTitle.html('<b>' + output.title + '</b>');
     articleBody.html(text);
